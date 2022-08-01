@@ -2,8 +2,6 @@
 // 分支的概念
 // 一个副作用函数内部存在一个三元表达式,根据字段obj.ok值的不同会执行不同的代码分支, ok值发生改变时, 代码分支也会跟着变化, 这就是分支切换
 
-
-
 const bucket = new WeakMap()
 let activeEffect
 // 原始数据
