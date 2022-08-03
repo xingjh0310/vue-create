@@ -63,6 +63,8 @@ function trigger(target, key){
 
 function effect(fn){
     // 新创建一个函数当做副作用函数
+
+    // ==================== 新增开始
     const effectFn = ()=>{
         // 首次执行时 effectFn 对应的是const变量, 是个函数体, 可以看做是个变量值
         // set执行的时候, effectFn 可以抽象的理解为函数体, 不存在变量的含义, 副作用函数执行的是(()=>{})(),当存储起来的时候, effectFn变量实际是对应成函数体存储起来的
@@ -73,12 +75,19 @@ function effect(fn){
     }
     effectFn.deps = []
     effectFn()
+    // ==================== 新增结束
+
+    // ==================== 删除
+    // activeEffect = fn
+    // fn()
+    // ==================== 删除
 }
 
 effect(()=>{
     document.querySelector('.text').innerText = obj.ok ? obj.text : ''
 })
 
+// ==================== 新增开始
 function cleanup(effectFn){
     // 遍历 effectFn.deps 数组
     for(let i=0; i<effectFn.deps.length; i++){
@@ -89,6 +98,8 @@ function cleanup(effectFn){
     }
     effectFn.deps.length = 0
 }
+
+// ==================== 新增结束
 
 document.querySelector('.button').onclick = function(){
     obj.ok = false
