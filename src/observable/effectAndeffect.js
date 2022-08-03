@@ -71,7 +71,6 @@ function track(target, key){
     //每进行一个get取值 都会收集一遍key对应的对象, 下次set的时候, 执行副作用函数activeEffect 之前, 就可以把deps拿出来进行循环删除
     //这样每次set之后的get, 都可以重新收集依赖
     activeEffect.deps.push(deps)
-    // console.log(activeEffect.deps)
 }
 
 // 函数触发
@@ -80,12 +79,10 @@ function trigger(target, key){
     const depsMap = bucket.get(target)
     if(!depsMap) return
     const effects = depsMap.get(key)
-    // console.log('触发',effects)
     // forEach 遍历Set集合时, 如果一个值已经被访问过了, 并且在执行副作用函数的时候被清除了并get的时候重新又添加到集合中了,
     // 这时的forEach 遍历还没有结束,那么该值就会被重新访问,造成死循环
     const effectsToRun = new Set(effects)
     effectsToRun.forEach(fn => { fn() });
-
 }
 
 // 创建一个副作用函数, 函数内部操作 响应式数据
@@ -139,7 +136,7 @@ effect(function effectFn1(){
     
 })
 // 理想情况下的数据模型 data->foo->effect1  data->bar->effect1
-// 我们希望当修改 foo 的时候, 触发了effect1的执行, 由于里面嵌套了effect2, 会简介的触发effect2执行, 修改data.bar的时候只会触发effect2的执行
+// 我们希望当修改 foo 的时候, 触发了effect1的执行, 由于里面嵌套了effect2, 会间接的触发effect2执行, 修改data.bar的时候只会触发effect2的执行
 // 实际情况呢? 
 // 初始化的时候会输出 'effect1执行', 'effect2执行', 目前为止是正确的, 当我们点击按钮修改 foo 之后呢, 我们希望输出的是effect1执行, 但是确实输出的effect2执行
 // 首先考虑出现这种问题的原因是什么? 
