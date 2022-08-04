@@ -4,7 +4,7 @@ import serve from 'rollup-plugin-serve';
 import path from 'path'
 
 export default{
-    input:'./src/observable/effectAndeffect.js',
+    input:'./src/observable/调度执行次数.js',
     output:{
         file:path.resolve(__dirname,'dist/bundle.js'),
         sourceMap:true,
@@ -19,7 +19,7 @@ export default{
             tsconfig:path.resolve(__dirname,'tsconfig.json')
         }),
         serve({
-            openPage:'public/observable/effectAndeffect.html',
+            openPage:'public/observable/调度执行次数.html',
             contentBase:'',
             port:3000
         })
