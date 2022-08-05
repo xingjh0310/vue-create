@@ -25,13 +25,15 @@ function flushJob(){
     isFlushing = true
     // 在微任务中刷新jobQueue队列
     p.then(()=>{
-        console.log(jobQueue)
+        // console.log(jobQueue)
         jobQueue.forEach(job=> job())
     }).finally(()=>{
         // 结束后重置 isFlushing
         isFlushing = false
     })
 }
+
+// ==============新增结束
 
 
 const bucket = new WeakMap()
@@ -170,7 +172,6 @@ effect(
     }
 )
 
-debugger
 
 obj.foo++
 obj.foo++
